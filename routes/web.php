@@ -16,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/chat', [App\Http\Controllers\ChatController::class, 'index']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/messages', [App\Http\Controllers\ChatController::class, 'fetchMessages']);
+    Route::post('/messages', [App\Http\Controllers\ChatController::class, 'sendMessage']);
+});
